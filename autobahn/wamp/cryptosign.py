@@ -92,7 +92,7 @@ def _read_ssh_ed25519_pubkey(keydata):
     :rtype: tuple
     """
     if type(keydata) != six.text_type:
-        raise Exception("invalid type {} for keydata".format(type(keydata)))
+        raise Exception("invalid type {0} for keydata".format(type(keydata)))
 
     parts = keydata.strip().split()
     if len(parts) != 3:
@@ -100,17 +100,17 @@ def _read_ssh_ed25519_pubkey(keydata):
     algo, keydata, comment = parts
 
     if algo != u'ssh-ed25519':
-        raise Exception('not a Ed25519 SSH public key (but {})'.format(algo))
+        raise Exception('not a Ed25519 SSH public key (but {0})'.format(algo))
 
     blob = binascii.a2b_base64(keydata)
 
     try:
         key = _unpack(blob)[1]
     except Exception as e:
-        raise Exception('could not parse key ({})'.format(e))
+        raise Exception('could not parse key ({0})'.format(e))
 
     if len(key) != 32:
-        raise Exception('invalid length {} for embedded raw key (must be 32 bytes)'.format(len(key)))
+        raise Exception('invalid length {0} for embedded raw key (must be 32 bytes)'.format(len(key)))
 
     return key, comment
 
@@ -205,7 +205,7 @@ def _read_ssh_ed25519_privkey(keydata):
         raise Exception('passphrase encrypted private keys not supported')
 
     if nkeys != 1:
-        raise Exception('multiple private keys in a key file not supported (found {} keys)'.format(nkeys))
+        raise Exception('multiple private keys in a key file not supported (found {0} keys)'.format(nkeys))
 
     if mac:
         raise Exception('invalid OpenSSH private key (found remaining payload for mac)')
@@ -218,7 +218,7 @@ def _read_ssh_ed25519_privkey(keydata):
     alg = packet.get_string()
 
     if alg != b'ssh-ed25519':
-        raise Exception('invalid key type: we only support Ed25519 (found "{}")'.format(alg.decode('ascii')))
+        raise Exception('invalid key type: we only support Ed25519 (found "{0}")'.format(alg.decode('ascii')))
 
     vk = packet.get_string()
     sk = packet.get_string()
@@ -253,7 +253,7 @@ def _read_signify_ed25519_signature(signature_file):
         # signature file format: 2nd line is base64 of 'Ed' || 8 random octets || 64 octets Ed25519 signature
         sig = binascii.a2b_base64(f.read().splitlines()[1])[10:]
         if len(sig) != 64:
-            raise Exception('bogus Ed25519 signature: raw signature length was {}, but expected 64'.format(len(sig)))
+            raise Exception('bogus Ed25519 signature: raw signature length was {0}, but expected 64'.format(len(sig)))
         return sig
 
 
@@ -267,7 +267,7 @@ def _read_signify_ed25519_pubkey(pubkey_file):
         # signature file format: 2nd line is base64 of 'Ed' || 8 random octets || 32 octets Ed25519 public key
         pubkey = binascii.a2b_base64(f.read().splitlines()[1])[10:]
         if len(pubkey) != 32:
-            raise Exception('bogus Ed25519 public key: raw key length was {}, but expected 32'.format(len(pubkey)))
+            raise Exception('bogus Ed25519 public key: raw key length was {0}, but expected 32'.format(len(pubkey)))
         return pubkey
 
 
@@ -366,18 +366,18 @@ if HAS_CRYPTOSIGN:
             :type key: instance of nacl.public.VerifyKey or instance of nacl.public.SigningKey
             """
             if not (isinstance(key, signing.VerifyKey) or isinstance(key, signing.SigningKey)):
-                raise Exception("invalid type {} for key".format(type(key)))
+                raise Exception("invalid type {0} for key".format(type(key)))
 
             if not (comment is None or type(comment) == six.text_type):
-                raise Exception("invalid type {} for comment".format(type(comment)))
+                raise Exception("invalid type {0} for comment".format(type(comment)))
 
             self._key = key
             self._comment = comment
             self._can_sign = isinstance(key, signing.SigningKey)
 
         def __str__(self):
-            comment = u'"{}"'.format(self.comment()) if self.comment() else None
-            return u'Key(can_sign={}, comment={}, public_key={})'.format(self.can_sign(), comment, self.public_key())
+            comment = u'"{0}"'.format(self.comment()) if self.comment() else None
+            return u'Key(can_sign={0}, comment={1}, public_key={2})'.format(self.can_sign(), comment, self.public_key())
 
         @util.public
         def can_sign(self):
@@ -455,7 +455,7 @@ if HAS_CRYPTOSIGN:
             :rtype: str
             """
             if not isinstance(challenge, Challenge):
-                raise Exception("challenge must be instance of autobahn.wamp.types.Challenge, not {}".format(type(challenge)))
+                raise Exception("challenge must be instance of autobahn.wamp.types.Challenge, not {0}".format(type(challenge)))
 
             if u'challenge' not in challenge.extra:
                 raise Exception("missing challenge value in challenge.extra")
@@ -499,10 +499,10 @@ if HAS_CRYPTOSIGN:
         @classmethod
         def from_key_bytes(cls, keydata, comment=None):
             if not (comment is None or type(comment) == six.text_type):
-                raise ValueError("invalid type {} for comment".format(type(comment)))
+                raise ValueError("invalid type {0} for comment".format(type(comment)))
 
             if len(keydata) != 32:
-                raise ValueError("invalid key length {}".format(len(keydata)))
+                raise ValueError("invalid key length {0}".format(len(keydata)))
 
             key = signing.SigningKey(keydata)
             return cls(key, comment)
@@ -525,10 +525,10 @@ if HAS_CRYPTOSIGN:
             :type comment: str or None
             """
             if not (comment is None or type(comment) == six.text_type):
-                raise Exception("invalid type {} for comment".format(type(comment)))
+                raise Exception("invalid type {0} for comment".format(type(comment)))
 
             if type(filename) != six.text_type:
-                raise Exception("invalid type {} for filename".format(filename))
+                raise Exception("invalid type {0} for filename".format(filename))
 
             with open(filename, 'rb') as f:
                 keydata = f.read()

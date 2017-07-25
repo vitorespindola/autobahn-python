@@ -143,11 +143,11 @@ def xor(d1, d2):
     :rtype: bytes
     """
     if type(d1) != six.binary_type:
-        raise Exception("invalid type {} for d1 - must be binary".format(type(d1)))
+        raise Exception("invalid type {0} for d1 - must be binary".format(type(d1)))
     if type(d2) != six.binary_type:
-        raise Exception("invalid type {} for d2 - must be binary".format(type(d2)))
+        raise Exception("invalid type {1} for d2 - must be binary".format(type(d2)))
     if len(d1) != len(d2):
-        raise Exception("cannot XOR binary string of differing length ({} != {})".format(len(d1), len(d2)))
+        raise Exception("cannot XOR binary string of differing length ({0} != {1})".format(len(d1), len(d2)))
 
     d1 = array('B', d1)
     d2 = array('B', d2)

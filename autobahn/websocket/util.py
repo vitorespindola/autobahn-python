@@ -128,7 +128,7 @@ def parse_url(url):
     """
     parsed = urlparse.urlparse(url)
     if parsed.scheme not in ["ws", "wss"]:
-        raise Exception("invalid WebSocket URL: protocol scheme '{}' is not for WebSocket".format(parsed.scheme))
+        raise Exception("invalid WebSocket URL: protocol scheme '{0}' is not for WebSocket".format(parsed.scheme))
     if not parsed.hostname or parsed.hostname == "":
         raise Exception("invalid WebSocket URL: missing hostname")
     if parsed.port is None or parsed.port == "":

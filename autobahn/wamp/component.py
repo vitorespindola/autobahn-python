@@ -69,35 +69,35 @@ def _validate_endpoint(endpoint, check_native_endpoint=None):
             # could maybe just make tcp the default?
             raise ValueError("'type' required in endpoint configuration")
         if endpoint['type'] not in ['tcp', 'unix']:
-            raise ValueError('invalid type "{}" in endpoint'.format(endpoint['type']))
+            raise ValueError('invalid type "{0}" in endpoint'.format(endpoint['type']))
 
         for k in endpoint.keys():
             if k not in ['type', 'host', 'port', 'path', 'tls']:
                 raise ValueError(
-                    "Invalid key '{}' in endpoint configuration".format(k)
+                    "Invalid key '{0}' in endpoint configuration".format(k)
                 )
 
         if endpoint['type'] == 'tcp':
             for k in ['host', 'port']:
                 if k not in endpoint:
                     raise ValueError(
-                        "'{}' required in 'tcp' endpoint config".format(k)
+                        "'{0}' required in 'tcp' endpoint config".format(k)
                     )
             for k in ['path']:
                 if k in endpoint:
                     raise ValueError(
-                        "'{}' not valid in 'tcp' endpoint config".format(k)
+                        "'{0}' not valid in 'tcp' endpoint config".format(k)
                     )
         elif endpoint['type'] == 'unix':
             for k in ['path']:
                 if k not in endpoint:
                     raise ValueError(
-                        "'{}' required for 'tcp' endpoint config".format(k)
+                        "'{0}' required for 'tcp' endpoint config".format(k)
                     )
             for k in ['host', 'port', 'tls']:
                 if k in endpoint:
                     raise ValueError(
-                        "'{}' not valid for in 'tcp' endpoint config".format(k)
+                        "'{0}' not valid for in 'tcp' endpoint config".format(k)
                     )
         else:
             assert False, 'should not arrive here'
@@ -115,19 +115,19 @@ def _create_transport(index, transport, check_native_endpoint=None):
     :raises: ValueError on invalid configuration
     """
     if type(transport) != dict:
-        raise ValueError('invalid type {} for transport configuration - must be a dict'.format(type(transport)))
+        raise ValueError('invalid type {0} for transport configuration - must be a dict'.format(type(transport)))
 
     valid_transport_keys = ['type', 'url', 'endpoint', 'serializer', 'serializers', 'options']
     for k in transport.keys():
         if k not in valid_transport_keys:
             raise ValueError(
-                "'{}' is not a valid configuration item".format(k)
+                "'{0}' is not a valid configuration item".format(k)
             )
 
     kind = 'websocket'
     if 'type' in transport:
         if transport['type'] not in ['websocket', 'rawsocket']:
-            raise ValueError('Invalid transport type {}'.format(transport['type']))
+            raise ValueError('Invalid transport type {0}'.format(transport['type']))
         kind = transport['type']
     else:
         transport['type'] = 'websocket'
@@ -137,13 +137,13 @@ def _create_transport(index, transport, check_native_endpoint=None):
         options = transport['options']
         if not isinstance(options, dict):
             raise ValueError(
-                'options must be a dict, not {}'.format(type(options))
+                'options must be a dict, not {0}'.format(type(options))
             )
 
     if kind == 'websocket':
         for key in ['url']:
             if key not in transport:
-                raise ValueError("Transport requires '{}' key".format(key))
+                raise ValueError("Transport requires '{0}' key".format(key))
         # endpoint not required; we will deduce from URL if it's not provided
         # XXX not in the branch I rebased; can this go away? (is it redundant??)
         if 'endpoint' not in transport:
@@ -173,7 +173,7 @@ def _create_transport(index, transport, check_native_endpoint=None):
             for serial in transport['serializers']:
                 if serial not in valid_serializers:
                     raise ValueError(
-                        "Invalid serializer '{}' (expected one of: {})".format(
+                        "Invalid serializer '{0}' (expected one of: {1})".format(
                             serial,
                             ', '.join([repr(s) for s in valid_serializers]),
                         )

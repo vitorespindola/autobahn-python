@@ -80,14 +80,14 @@ def create_url(hostname, port=None, isSecure=False):
         netloc = "%s:%d" % (hostname, port)
     else:
         if isSecure:
-            netloc = u"{}:443".format(hostname)
+            netloc = u"{0}:443".format(hostname)
         else:
-            netloc = u"{}:80".format(hostname)
+            netloc = u"{0}:80".format(hostname)
     if isSecure:
         scheme = u"rss"
     else:
         scheme = u"rs"
-    return u"{}://{}".format(scheme, netloc)
+    return u"{0}://{1}".format(scheme, netloc)
 
 
 @public
@@ -109,19 +109,19 @@ def parse_url(url):
     parsed = urlparse.urlparse(url)
 
     if parsed.scheme not in ["rs", "rss"]:
-        raise Exception("invalid RawSocket URL: protocol scheme '{}' is not for RawSocket".format(parsed.scheme))
+        raise Exception("invalid RawSocket URL: protocol scheme '{0}' is not for RawSocket".format(parsed.scheme))
 
     if not parsed.hostname or parsed.hostname == "":
         raise Exception("invalid RawSocket URL: missing hostname")
 
     if parsed.path is not None and parsed.path != "":
-        raise Exception("invalid RawSocket URL: non-empty path '{}'".format(parsed.path))
+        raise Exception("invalid RawSocket URL: non-empty path '{0}'".format(parsed.path))
 
     if parsed.query is not None and parsed.query != "":
-        raise Exception("invalid RawSocket URL: non-empty query '{}'".format(parsed.query))
+        raise Exception("invalid RawSocket URL: non-empty query '{0}'".format(parsed.query))
 
     if parsed.fragment is not None and parsed.fragment != "":
-        raise Exception("invalid RawSocket URL: non-empty fragment '{}'".format(parsed.fragment))
+        raise Exception("invalid RawSocket URL: non-empty fragment '{0}'".format(parsed.fragment))
 
     if parsed.port is None or parsed.port == "":
         if parsed.scheme == "rs":
@@ -132,6 +132,6 @@ def parse_url(url):
         port = int(parsed.port)
 
     if port < 1 or port > 65535:
-        raise Exception("invalid port {}".format(port))
+        raise Exception("invalid port {0}".format(port))
 
     return parsed.scheme == "rss", parsed.hostname, port

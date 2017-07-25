@@ -111,7 +111,7 @@ class ComponentConfig(object):
         self.shared = shared
 
     def __str__(self):
-        return u"ComponentConfig(realm=<{}>, extra={}, keyring={}, controller={}, shared={})".format(self.realm, self.extra, self.keyring, self.controller, self.shared)
+        return u"ComponentConfig(realm=<{0}>, extra={1}, keyring={2}, controller={3}, shared={4})".format(self.realm, self.extra, self.keyring, self.controller, self.shared)
 
 
 @public
@@ -172,7 +172,7 @@ class Accept(HelloReturn):
         self.authextra = authextra
 
     def __str__(self):
-        return u"Accept(realm=<{}>, authid=<{}>, authrole=<{}>, authmethod={}, authprovider={}, authextra={})".format(self.realm, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra)
+        return u"Accept(realm=<{0}>, authid=<{1}>, authrole=<{2}>, authmethod={3}, authprovider={4}, authextra={5})".format(self.realm, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra)
 
 
 @public
@@ -202,7 +202,7 @@ class Deny(HelloReturn):
         self.message = message
 
     def __str__(self):
-        return u"Deny(reason=<{}>, message='{}')".format(self.reason, self.message)
+        return u"Deny(reason=<{0}>, message='{1}')".format(self.reason, self.message)
 
 
 @public
@@ -233,7 +233,7 @@ class Challenge(HelloReturn):
         self.extra = extra or {}
 
     def __str__(self):
-        return u"Challenge(method={}, extra={})".format(self.method, self.extra)
+        return u"Challenge(method={0}, extra={1})".format(self.method, self.extra)
 
 
 @public
@@ -311,7 +311,7 @@ class HelloDetails(object):
         self.resume_token = resume_token
 
     def __str__(self):
-        return u"HelloDetails(realm=<{}>, authmethods={}, authid=<{}>, authrole=<{}>, authextra={}, session_roles={}, pending_session={}, resumable={}, resume_session={}, resume_token={})".format(self.realm, self.authmethods, self.authid, self.authrole, self.authextra, self.session_roles, self.pending_session, self.resumable, self.resume_session, self.resume_token)
+        return u"HelloDetails(realm=<{0}>, authmethods={1}, authid=<{2}>, authrole=<{3}>, authextra={4}, session_roles={5}, pending_session={6}, resumable={7}, resume_session={8}, resume_token={9})".format(self.realm, self.authmethods, self.authid, self.authrole, self.authextra, self.session_roles, self.pending_session, self.resumable, self.resume_session, self.resume_token)
 
 
 @public
@@ -376,7 +376,7 @@ class SessionDetails(object):
         self.resume_token = resume_token
 
     def __str__(self):
-        return u"SessionDetails(realm=<{}>, session={}, authid=<{}>, authrole=<{}>, authmethod={}, authprovider={}, authextra={}, resumed={}, resumable={}, resume_token={})".format(self.realm, self.session, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra, self.resumed, self.resumable, self.resume_token)
+        return u"SessionDetails(realm=<{0}>, session={1}, authid=<{2}>, authrole=<{3}>, authmethod={4}, authprovider={5}, authextra={6}, resumed={7}, resumable={8}, resume_token={9})".format(self.realm, self.session, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra, self.resumed, self.resumable, self.resume_token)
 
 
 @public
@@ -410,7 +410,7 @@ class CloseDetails(object):
         self.message = message
 
     def __str__(self):
-        return u"CloseDetails(reason=<{}>, message='{}')".format(self.reason, self.message)
+        return u"CloseDetails(reason=<{0}>, message='{1}')".format(self.reason, self.message)
 
 
 @public
@@ -475,7 +475,7 @@ class SubscribeOptions(object):
         return options
 
     def __str__(self):
-        return u"SubscribeOptions(match={}, details={}, details_arg={}, get_retained={})".format(self.match, self.details, self.details_arg, self.get_retained)
+        return u"SubscribeOptions(match={0}, details={1}, details_arg={2}, get_retained={3})".format(self.match, self.details, self.details_arg, self.get_retained)
 
 
 @public
@@ -547,7 +547,7 @@ class EventDetails(object):
         self.enc_algo = enc_algo
 
     def __str__(self):
-        return u"EventDetails(subscription={}, publication={}, publisher={}, publisher_authid={}, publisher_authrole={}, topic=<{}>, retained={}, enc_algo={})".format(self.subscription, self.publication, self.publisher, self.publisher_authid, self.publisher_authrole, self.topic, self.retained, self.enc_algo)
+        return u"EventDetails(subscription={0}, publication={1}, publisher={2}, publisher_authid={3}, publisher_authrole={4}, topic=<{5}>, retained={6}, enc_algo={7})".format(self.subscription, self.publication, self.publisher, self.publisher_authid, self.publisher_authrole, self.topic, self.retained, self.enc_algo)
 
 
 @public
@@ -666,7 +666,7 @@ class PublishOptions(object):
         return options
 
     def __str__(self):
-        return u"PublishOptions(acknowledge={}, exclude_me={}, exclude={}, exclude_authid={}, exclude_authrole={}, eligible={}, eligible_authid={}, eligible_authrole={}, retain={})".format(self.acknowledge, self.exclude_me, self.exclude, self.exclude_authid, self.exclude_authrole, self.eligible, self.eligible_authid, self.eligible_authrole, self.retain)
+        return u"PublishOptions(acknowledge={0}, exclude_me={1}, exclude={2}, exclude_authid={3}, exclude_authrole={4}, eligible={5}, eligible_authid={6}, eligible_authrole={7}, retain={8})".format(self.acknowledge, self.exclude_me, self.exclude, self.exclude_authid, self.exclude_authrole, self.eligible, self.eligible_authid, self.eligible_authrole, self.retain)
 
 
 @public
@@ -725,7 +725,7 @@ class RegisterOptions(object):
         return options
 
     def __str__(self):
-        return u"RegisterOptions(match={}, invoke={}, concurrency={}, details_arg={}, force_reregister={})".format(self.match, self.invoke, self.concurrency, self.details_arg, self.force_reregister)
+        return u"RegisterOptions(match={0}, invoke={1}, concurrency={2}, details_arg={3}, force_reregister={4})".format(self.match, self.invoke, self.concurrency, self.details_arg, self.force_reregister)
 
 
 @public
@@ -790,7 +790,7 @@ class CallDetails(object):
         self.enc_algo = enc_algo
 
     def __str__(self):
-        return u"CallDetails(registration={}, progress={}, caller={}, caller_authid={}, caller_authrole={}, procedure=<{}>, enc_algo={})".format(self.registration, self.progress, self.caller, self.caller_authid, self.caller_authrole, self.procedure, self.enc_algo)
+        return u"CallDetails(registration={0}, progress={1}, caller={2}, caller_authid={3}, caller_authrole={4}, procedure=<{5}>, enc_algo={6})".format(self.registration, self.progress, self.caller, self.caller_authid, self.caller_authrole, self.procedure, self.enc_algo)
 
 
 @public
@@ -837,7 +837,7 @@ class CallOptions(object):
         return options
 
     def __str__(self):
-        return u"CallOptions(on_progress={}, timeout={})".format(self.on_progress, self.timeout)
+        return u"CallOptions(on_progress={0}, timeout={1})".format(self.on_progress, self.timeout)
 
 
 @public
@@ -870,7 +870,7 @@ class CallResult(object):
         self.kwresults = kwresults
 
     def __str__(self):
-        return u"CallResult(results={}, kwresults={}, enc_algo={})".format(self.results, self.kwresults, self.enc_algo)
+        return u"CallResult(results={0}, kwresults={1}, enc_algo={2})".format(self.results, self.kwresults, self.enc_algo)
 
 
 @public

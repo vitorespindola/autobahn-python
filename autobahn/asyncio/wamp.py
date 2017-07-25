@@ -180,7 +180,7 @@ class ApplicationRunner(object):
                 try:
                     session = make(cfg)
                 except Exception as e:
-                    self.log.error('ApplicationSession could not be instantiated: {}'.format(e))
+                    self.log.error('ApplicationSession could not be instantiated: {0}'.format(e))
                     loop = asyncio.get_event_loop()
                     if loop.is_running():
                         loop.stop()

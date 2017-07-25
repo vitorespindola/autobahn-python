@@ -95,7 +95,7 @@ def _create_transport_serializer(serializer_id):
             else:
                 return JsonSerializer()
 
-    raise RuntimeError('could not create serializer for "{}"'.format(serializer_id))
+    raise RuntimeError('could not create serializer for "{0}"'.format(serializer_id))
 
 
 def _create_transport_serializers(transport):
@@ -126,7 +126,7 @@ def _create_transport_serializers(transport):
 
         else:
             raise RuntimeError(
-                "Unknown serializer '{}'".format(serializer_id)
+                "Unknown serializer '{0}'".format(serializer_id)
             )
 
     return serializers
@@ -166,7 +166,7 @@ def _create_transport_factory(loop, transport, session_factory):
                 )
             except (TypeError, KeyError):
                 raise ValueError(
-                    "Unknown {} transport option: {}={}".format(transport.type, k, v)
+                    "Unknown {0} transport option: {1}={2}".format(transport.type, k, v)
                 )
     return factory
 
@@ -217,19 +217,19 @@ class Component(component.Component):
 
             version = transport.endpoint.get(u'version', 4)
             if version not in [4, 6]:
-                raise ValueError('invalid IP version {} in client endpoint configuration'.format(version))
+                raise ValueError('invalid IP version {0} in client endpoint configuration'.format(version))
 
             host = transport.endpoint[u'host']
             if type(host) != six.text_type:
-                raise ValueError('invalid type {} for host in client endpoint configuration'.format(type(host)))
+                raise ValueError('invalid type {0} for host in client endpoint configuration'.format(type(host)))
 
             port = transport.endpoint[u'port']
             if type(port) not in six.integer_types:
-                raise ValueError('invalid type {} for port in client endpoint configuration'.format(type(port)))
+                raise ValueError('invalid type {0} for port in client endpoint configuration'.format(type(port)))
 
             timeout = transport.endpoint.get(u'timeout', 10)  # in seconds
             if type(timeout) not in six.integer_types:
-                raise ValueError('invalid type {} for timeout in client endpoint configuration'.format(type(timeout)))
+                raise ValueError('invalid type {0} for timeout in client endpoint configuration'.format(type(timeout)))
 
             tls = transport.endpoint.get(u'tls', None)
             tls_hostname = None
@@ -239,10 +239,10 @@ class Component(component.Component):
                 if isinstance(tls, dict):
                     for k in tls.keys():
                         if k not in [u"hostname", u"trust_root"]:
-                            raise ValueError("Invalid key '{}' in 'tls' config".format(k))
+                            raise ValueError("Invalid key '{0}' in 'tls' config".format(k))
                     hostname = tls.get(u'hostname', host)
                     if type(hostname) != six.text_type:
-                        raise ValueError('invalid type {} for hostname in TLS client endpoint configuration'.format(hostname))
+                        raise ValueError('invalid type {0} for hostname in TLS client endpoint configuration'.format(hostname))
                     cert_fname = tls.get(u'trust_root', None)
 
                     tls_hostname = hostname
@@ -262,7 +262,7 @@ class Component(component.Component):
                         tls_hostname = host
 
                 else:
-                    raise RuntimeError('unknown type {} for "tls" configuration in transport'.format(type(tls)))
+                    raise RuntimeError('unknown type {0} for "tls" configuration in transport'.format(type(tls)))
 
             f = loop.create_connection(
                 protocol_factory=factory,

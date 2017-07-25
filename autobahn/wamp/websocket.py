@@ -118,7 +118,7 @@ class WampWebSocketProtocol(object):
                 )
                 payload, isBinary = self._serializer.serialize(msg)
             except Exception as e:
-                self.log.error("WAMP message serialization error: {}".format(e))
+                self.log.error("WAMP message serialization error: {0}".format(e))
                 # all exceptions raised from above should be serialization errors ..
                 raise SerializationError(u"WAMP message serialization error: {0}".format(e))
             else:
@@ -158,7 +158,7 @@ def parseSubprotocolIdentifier(subprotocol):
     try:
         s = subprotocol.split(u'.')
         if s[0] != u'wamp':
-            raise Exception(u'WAMP WebSocket subprotocol identifier must start with "wamp", not "{}"'.format(s[0]))
+            raise Exception(u'WAMP WebSocket subprotocol identifier must start with "wamp", not "{0}"'.format(s[0]))
         version = int(s[1])
         serializerId = u'.'.join(s[2:])
         return version, serializerId
@@ -185,7 +185,7 @@ class WampWebSocketServerProtocol(WampWebSocketProtocol):
                 return subprotocol, headers
 
         if self.STRICT_PROTOCOL_NEGOTIATION:
-            raise ConnectionDeny(ConnectionDeny.BAD_REQUEST, u'This server only speaks WebSocket subprotocols {}'.format(u', '.join(self.factory.protocols)))
+            raise ConnectionDeny(ConnectionDeny.BAD_REQUEST, u'This server only speaks WebSocket subprotocols {0}'.format(u', '.join(self.factory.protocols)))
         else:
             # assume wamp.2.json
             self._serializer = self.factory._serializers[u'json']
@@ -205,7 +205,7 @@ class WampWebSocketClientProtocol(WampWebSocketProtocol):
         """
         if response.protocol not in self.factory.protocols:
             if self.STRICT_PROTOCOL_NEGOTIATION:
-                raise Exception(u'The server does not speak any of the WebSocket subprotocols {} we requested.'.format(u', '.join(self.factory.protocols)))
+                raise Exception(u'The server does not speak any of the WebSocket subprotocols {0} we requested.'.format(u', '.join(self.factory.protocols)))
             else:
                 # assume wamp.2.json
                 serializerId = u'json'
@@ -280,7 +280,7 @@ class WampWebSocketFactory(object):
         for ser in serializers:
             self._serializers[ser.SERIALIZER_ID] = ser
 
-        self._protocols = [u'wamp.2.{}'.format(ser.SERIALIZER_ID) for ser in serializers]
+        self._protocols = [u'wamp.2.{0}'.format(ser.SERIALIZER_ID) for ser in serializers]
 
 
 class WampWebSocketServerFactory(WampWebSocketFactory):

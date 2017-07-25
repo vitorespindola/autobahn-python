@@ -96,7 +96,7 @@ def _url_to_origin(url):
             port = None
 
     if not host:
-        raise ValueError("No host part in Origin '{}'".format(url))
+        raise ValueError("No host part in Origin '{0}'".format(url))
     return scheme, host, port
 
 
@@ -574,13 +574,13 @@ class WebSocketProtocol(object):
                 self.wasMaxMessagePayloadSizeExceeded = True
                 self._fail_connection(
                     WebSocketProtocol.CLOSE_STATUS_CODE_MESSAGE_TOO_BIG,
-                    u'message exceeds payload limit of {} octets'.format(self.maxMessagePayloadSize)
+                    u'message exceeds payload limit of {0} octets'.format(self.maxMessagePayloadSize)
                 )
             elif 0 < self.maxFramePayloadSize < length:
                 self.wasMaxFramePayloadSizeExceeded = True
                 self._fail_connection(
                     WebSocketProtocol.CLOSE_STATUS_CODE_POLICY_VIOLATION,
-                    u'frame exceeds payload limit of {} octets'.format(self.maxFramePayloadSize)
+                    u'frame exceeds payload limit of {0} octets'.format(self.maxFramePayloadSize)
                 )
 
     def onMessageFrameData(self, payload):
@@ -594,7 +594,7 @@ class WebSocketProtocol(object):
                     self.wasMaxMessagePayloadSizeExceeded = True
                     self._fail_connection(
                         WebSocketProtocol.CLOSE_STATUS_CODE_MESSAGE_TOO_BIG,
-                        u'message exceeds payload limit of {} octets'.format(self.maxMessagePayloadSize)
+                        u'message exceeds payload limit of {0} octets'.format(self.maxMessagePayloadSize)
                     )
                 self.message_data.append(payload)
             else:
@@ -687,7 +687,7 @@ class WebSocketProtocol(object):
         # reserved close codes: 0-999, 1004, 1005, 1006, 1011-2999, >= 5000
         #
         if code is not None and (code < 1000 or (1000 <= code <= 2999 and code not in WebSocketProtocol.CLOSE_STATUS_CODES_ALLOWED) or code >= 5000):
-            if self._protocol_violation(u'invalid close code {}'.format(code)):
+            if self._protocol_violation(u'invalid close code {0}'.format(code)):
                 return True
             else:
                 self.remoteCloseCode = WebSocketProtocol.CLOSE_STATUS_CODE_NORMAL
@@ -1355,7 +1355,7 @@ class WebSocketProtocol(object):
                     if self._perMessageCompress is not None and frame_rsv == 4:
                         pass
                     else:
-                        if self._protocol_violation(u'RSV = {} and no extension negotiated'.format(frame_rsv)):
+                        if self._protocol_violation(u'RSV = {0} and no extension negotiated'.format(frame_rsv)):
                             return False
 
                 # all client-to-server frames MUST be masked
@@ -1389,7 +1389,7 @@ class WebSocketProtocol(object):
                     # check for reserved control frame opcodes
                     #
                     if frame_opcode not in [8, 9, 10]:
-                        if self._protocol_violation(u'control frame using reserved opcode {}'.format(frame_opcode)):
+                        if self._protocol_violation(u'control frame using reserved opcode {0}'.format(frame_opcode)):
                             return False
 
                     # close frame : if there is a body, the first two bytes of the body MUST be a 2-byte
@@ -1402,7 +1402,7 @@ class WebSocketProtocol(object):
                     # control frames MUST NOT be compressed
                     #
                     if self._perMessageCompress is not None and frame_rsv == 4:
-                        if self._protocol_violation(u'received compressed control frame [{}]'.format(self._perMessageCompress.EXTENSION_NAME)):
+                        if self._protocol_violation(u'received compressed control frame [{0}]'.format(self._perMessageCompress.EXTENSION_NAME)):
                             return False
 
                 else:  # data frame
@@ -1410,7 +1410,7 @@ class WebSocketProtocol(object):
                     # check for reserved data frame opcodes
                     #
                     if frame_opcode not in [0, 1, 2]:
-                        if self._protocol_violation(u'data frame using reserved opcode {}'.format(frame_opcode)):
+                        if self._protocol_violation(u'data frame using reserved opcode {0}'.format(frame_opcode)):
                             return False
 
                     # check opcode vs message fragmentation state 1/2
@@ -1428,7 +1428,7 @@ class WebSocketProtocol(object):
                     # continuation data frames MUST NOT have the compressed bit set
                     #
                     if self._perMessageCompress is not None and frame_rsv == 4 and self.inside_message:
-                        if self._protocol_violation(u'received continuation data frame with compress bit set [{}]'.format(self._perMessageCompress.EXTENSION_NAME)):
+                        if self._protocol_violation(u'received continuation data frame with compress bit set [{0}]'.format(self._perMessageCompress.EXTENSION_NAME)):
                             return False
 
                 # compute complete header length
@@ -1633,7 +1633,7 @@ class WebSocketProtocol(object):
             if self.utf8validateIncomingCurrentMessage:
                 self.utf8validateLast = self.utf8validator.validate(payload)
                 if not self.utf8validateLast[0]:
-                    if self._invalid_payload(u'encountered invalid UTF-8 while processing text message at payload octet index {}'.format(self.utf8validateLast[3])):
+                    if self._invalid_payload(u'encountered invalid UTF-8 while processing text message at payload octet index {0}'.format(self.utf8validateLast[3])):
                         return False
 
             self._onMessageFrameData(payload)
@@ -1665,7 +1665,7 @@ class WebSocketProtocol(object):
                 #
                 if self.utf8validateIncomingCurrentMessage:
                     if not self.utf8validateLast[1]:
-                        if self._invalid_payload(u'UTF-8 text message payload ended within Unicode code point at payload octet index {}'.format(self.utf8validateLast[3])):
+                        if self._invalid_payload(u'UTF-8 text message payload ended within Unicode code point at payload octet index {0}'.format(self.utf8validateLast[3])):
                             return False
 
                 if self.state == WebSocketProtocol.STATE_OPEN:
@@ -1937,7 +1937,7 @@ class WebSocketProtocol(object):
         """
         if code is not None:
             if type(code) not in six.integer_types:
-                raise Exception("invalid type '{}' for close code (must be an integer)".format(type(code)))
+                raise Exception("invalid type '{0}' for close code (must be an integer)".format(type(code)))
 
             # 1000 Normal Closure
             # 3000-3999 First Come First Served
@@ -1945,14 +1945,14 @@ class WebSocketProtocol(object):
             # See: https://www.iana.org/assignments/websocket/websocket.xml#close-code-number-rules
             #
             if code != 1000 and not (3000 <= code <= 4999):
-                raise Exception("invalid close code {} (must be 1000 or from [3000, 4999])".format(code))
+                raise Exception("invalid close code {0} (must be 1000 or from [3000, 4999])".format(code))
 
         if reason is not None:
             if code is None:
                 raise Exception("close reason without close code")
 
             if type(reason) != six.text_type:
-                raise Exception("reason must be of type unicode (was '{}')".format(type(reason)))
+                raise Exception("reason must be of type unicode (was '{0}')".format(type(reason)))
 
             reasonUtf8 = encode_truncate(reason, 123)
         else:
@@ -2706,7 +2706,7 @@ class WebSocketServerProtocol(WebSocketProtocol):
                     origin_tuple = _url_to_origin(self.websocket_origin)
                 except ValueError as e:
                     return self.failHandshake(
-                        "HTTP Origin header invalid: {}".format(e)
+                        "HTTP Origin header invalid: {0}".format(e)
                     )
                 have_origin = True
             else:
@@ -2800,7 +2800,7 @@ class WebSocketServerProtocol(WebSocketProtocol):
                         # the user handler ran into an unexpected error (and hence, user code needs fixing!)
                         self.log.warn("Unexpected exception in onConnect ['{err.value}']", err=err)
                         self.log.warn("{tb}", tb=txaio.failure_format_traceback(err))
-                        return self.failHandshake("Internal server error: {}".format(err.value), ConnectionDeny.INTERNAL_SERVER_ERROR)
+                        return self.failHandshake("Internal server error: {0}".format(err.value), ConnectionDeny.INTERNAL_SERVER_ERROR)
 
                 txaio.add_callbacks(f, self.succeedHandshake, forward_error)
 
@@ -3735,7 +3735,7 @@ class WebSocketClientProtocol(WebSocketProtocol):
             except Exception as e:
                 # immediately close the WS connection
                 #
-                self._fail_connection(1000, u'{}'.format(e))
+                self._fail_connection(1000, u'{0}'.format(e))
             else:
                 # fire handler on derived class
                 #

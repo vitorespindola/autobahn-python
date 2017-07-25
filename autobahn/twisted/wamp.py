@@ -751,17 +751,17 @@ class AuthCryptoSign(object):
         for key in kw.keys():
             if key not in [u'authextra', u'authid', u'authrole', u'privkey']:
                 raise ValueError(
-                    "Unexpected key '{}' for {}".format(key, self.__class__.__name__)
+                    "Unexpected key '{0}' for {1}".format(key, self.__class__.__name__)
                 )
         for key in [u'privkey', u'authid']:
             if key not in kw:
                 raise ValueError(
-                    "Must provide '{}' for cryptosign".format(key)
+                    "Must provide '{0}' for cryptosign".format(key)
                 )
         for key in kw.get('authextra', dict()):
             if key not in [u'pubkey']:
                 raise ValueError(
-                    "Unexpected key '{}' in 'authextra'".format(key)
+                    "Unexpected key '{0}' in 'authextra'".format(key)
                 )
 
         from autobahn.wamp.cryptosign import SigningKey
@@ -794,12 +794,12 @@ class AuthWampCra(object):
         for key in kw.keys():
             if key not in [u'authextra', u'authid', u'authrole', u'secret']:
                 raise ValueError(
-                    "Unexpected key '{}' for {}".format(key, self.__class__.__name__)
+                    "Unexpected key '{0}' for {1}".format(key, self.__class__.__name__)
                 )
         for key in [u'secret', u'authid']:
             if key not in kw:
                 raise ValueError(
-                    "Must provide '{}' for wampcra".format(key)
+                    "Must provide '{0}' for wampcra".format(key)
                 )
 
         self._args = kw

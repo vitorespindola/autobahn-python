@@ -107,7 +107,7 @@ def transport_channel_id(transport, is_server, channel_id_type):
         return None
 
     if channel_id_type not in [u'tls-unique']:
-        raise Exception("invalid channel ID type {}".format(channel_id_type))
+        raise Exception("invalid channel ID type {0}".format(channel_id_type))
 
     if hasattr(transport, '_tlsConnection'):
         # Obtain latest TLS Finished message that we expected from peer, or None if handshake is not completed.

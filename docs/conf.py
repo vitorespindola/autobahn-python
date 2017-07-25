@@ -87,7 +87,7 @@ def autodoc_skip_member(app, what, name, obj, skip, options):
             except AttributeError as e:
                 print(e)
                 qn = name
-            print('public API: {}.{}'.format(obj.__module__, qn))
+            print('public API: {0}.{1}'.format(obj.__module__, qn))
         return False
     else:
         return True

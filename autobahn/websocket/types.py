@@ -363,9 +363,9 @@ class Ping(object):
         :type payload: bytes or None
         """
         assert(payload is None or type(payload) == bytes), \
-            ("invalid type {} for WebSocket ping payload - must be None or bytes".format(type(payload)))
+            ("invalid type {0} for WebSocket ping payload - must be None or bytes".format(type(payload)))
         if payload is not None:
             assert(len(payload) < 126), \
-                ("WebSocket ping payload too long ({} bytes) - must be <= 125 bytes".format(len(payload)))
+                ("WebSocket ping payload too long ({0} bytes) - must be <= 125 bytes".format(len(payload)))
 
         self.payload = payload

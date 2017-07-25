@@ -159,7 +159,7 @@ def b2a(data, max_len=40):
     elif data is None:
         s = u'-'
     else:
-        s = u'{}'.format(data)
+        s = u'{0}'.format(data)
     if len(s) > max_len:
         return s[:max_len] + u'..'
     else:
@@ -597,7 +597,7 @@ class Hello(Message):
         """
         Return a string representation of this message.
         """
-        return u"Hello(realm={}, roles={}, authmethods={}, authid={}, authrole={}, authextra={}, resumable={}, resume_session={}, resume_token={})".format(self.realm, self.roles, self.authmethods, self.authid, self.authrole, self.authextra, self.resumable, self.resume_session, self.resume_token)
+        return u"Hello(realm={0}, roles={1}, authmethods={2}, authid={3}, authrole={4}, authextra={5}, resumable={6}, resume_session={7}, resume_token={8})".format(self.realm, self.roles, self.authmethods, self.authid, self.authrole, self.authextra, self.resumable, self.resume_session, self.resume_token)
 
 
 class Welcome(Message):
@@ -836,7 +836,7 @@ class Welcome(Message):
         """
         Returns string representation of this message.
         """
-        return u"Welcome(session={}, roles={}, realm={}, authid={}, authrole={}, authmethod={}, authprovider={}, authextra={}, resumed={}, resumable={}, resume_token={})".format(self.session, self.roles, self.realm, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra, self.resumed, self.resumable, self.resume_token)
+        return u"Welcome(session={0}, roles={1}, realm={2}, authid={3}, authrole={4}, authmethod={5}, authprovider={6}, authextra={7}, resumed={8}, resumable={9}, resume_token={10})".format(self.session, self.roles, self.realm, self.authid, self.authrole, self.authmethod, self.authprovider, self.authextra, self.resumed, self.resumable, self.resume_token)
 
 
 class Abort(Message):
@@ -1180,7 +1180,7 @@ class Goodbye(Message):
         """
         Returns string representation of this message.
         """
-        return u"Goodbye(message={}, reason={}, resumable={})".format(self.message, self.reason, self.resumable)
+        return u"Goodbye(message={0}, reason={1}, resumable={2})".format(self.message, self.reason, self.resumable)
 
 
 class Error(Message):
@@ -1800,7 +1800,7 @@ class Publish(Message):
         """
         Returns string representation of this message.
         """
-        return u"Publish(request={}, topic={}, args={}, kwargs={}, acknowledge={}, exclude_me={}, exclude={}, exclude_authid={}, exclude_authrole={}, eligible={}, eligible_authid={}, eligible_authrole={}, retain={}, enc_algo={}, enc_key={}, enc_serializer={}, payload={})".format(self.request, self.topic, self.args, self.kwargs, self.acknowledge, self.exclude_me, self.exclude, self.exclude_authid, self.exclude_authrole, self.eligible, self.eligible_authid, self.eligible_authrole, self.retain, self.enc_algo, self.enc_key, self.enc_serializer, b2a(self.payload))
+        return u"Publish(request={0}, topic={1}, args={2}, kwargs={3}, acknowledge={4}, exclude_me={5}, exclude={6}, exclude_authid={7}, exclude_authrole={8}, eligible={9}, eligible_authid={9}, eligible_authrole={10}, retain={11}, enc_algo={12}, enc_key={13}, enc_serializer={14}, payload={15})".format(self.request, self.topic, self.args, self.kwargs, self.acknowledge, self.exclude_me, self.exclude, self.exclude_authid, self.exclude_authrole, self.eligible, self.eligible_authid, self.eligible_authrole, self.retain, self.enc_algo, self.enc_key, self.enc_serializer, b2a(self.payload))
 
 
 class Published(Message):
@@ -2530,7 +2530,7 @@ class Event(Message):
         """
         Returns string representation of this message.
         """
-        return u"Event(subscription={}, publication={}, args={}, kwargs={}, publisher={}, publisher_authid={}, publisher_authrole={}, topic={}, retained={}, enc_algo={}, enc_key={}, enc_serializer={}, payload={})".format(self.subscription, self.publication, self.args, self.kwargs, self.publisher, self.publisher_authid, self.publisher_authrole, self.topic, self.retained, self.enc_algo, self.enc_key, self.enc_serializer, b2a(self.payload))
+        return u"Event(subscription={0}, publication={1}, args={2}, kwargs={3}, publisher={4}, publisher_authid={5}, publisher_authrole={6}, topic={7}, retained={8}, enc_algo={9}, enc_key={10}, enc_serializer={11}, payload={12})".format(self.subscription, self.publication, self.args, self.kwargs, self.publisher, self.publisher_authid, self.publisher_authrole, self.topic, self.retained, self.enc_algo, self.enc_key, self.enc_serializer, b2a(self.payload))
 
 
 class EventReceived(Message):
@@ -2596,7 +2596,7 @@ class EventReceived(Message):
         """
         Returns string representation of this message.
         """
-        return u"EventReceived(publication={})".format(self.publication)
+        return u"EventReceived(publication={0})".format(self.publication)
 
 
 class Call(Message):

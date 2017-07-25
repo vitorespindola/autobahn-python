@@ -70,7 +70,7 @@ def create_authenticator(name, **kwargs):
         }[name]
     except KeyError:
         raise ValueError(
-            "Unknown authenticator '{}'".format(name)
+            "Unknown authenticator '{0}'".format(name)
         )
     # this may raise further ValueErrors if the kwargs are wrong
     authenticator = klass(**kwargs)
@@ -86,17 +86,17 @@ class AuthCryptoSign(object):
         for key in kw.keys():
             if key not in [u'authextra', u'authid', u'authrole', u'privkey']:
                 raise ValueError(
-                    "Unexpected key '{}' for {}".format(key, self.__class__.__name__)
+                    "Unexpected key '{0}' for {1}".format(key, self.__class__.__name__)
                 )
         for key in [u'privkey', u'authid']:
             if key not in kw:
                 raise ValueError(
-                    "Must provide '{}' for cryptosign".format(key)
+                    "Must provide '{0}' for cryptosign".format(key)
                 )
         for key in kw.get('authextra', dict()):
             if key not in [u'pubkey']:
                 raise ValueError(
-                    "Unexpected key '{}' in 'authextra'".format(key)
+                    "Unexpected key '{0}' in 'authextra'".format(key)
                 )
 
         from autobahn.wamp.cryptosign import SigningKey
@@ -134,12 +134,12 @@ class AuthWampCra(object):
         for key in kw.keys():
             if key not in [u'authextra', u'authid', u'authrole', u'secret']:
                 raise ValueError(
-                    "Unexpected key '{}' for {}".format(key, self.__class__.__name__)
+                    "Unexpected key '{0}' for {1}".format(key, self.__class__.__name__)
                 )
         for key in [u'secret', u'authid']:
             if key not in kw:
                 raise ValueError(
-                    "Must provide '{}' for wampcra".format(key)
+                    "Must provide '{0}' for wampcra".format(key)
                 )
 
         self._args = kw
@@ -246,10 +246,10 @@ def check_totp(secret, ticket):
 @public
 def qrcode_from_totp(secret, label, issuer):
     if type(secret) != six.text_type:
-        raise Exception('secret must be of type unicode, not {}'.format(type(secret)))
+        raise Exception('secret must be of type unicode, not {0}'.format(type(secret)))
 
     if type(label) != six.text_type:
-        raise Exception('label must be of type unicode, not {}'.format(type(label)))
+        raise Exception('label must be of type unicode, not {0}'.format(type(label)))
 
     try:
         import pyqrcode
@@ -259,7 +259,7 @@ def qrcode_from_totp(secret, label, issuer):
     import io
     buffer = io.BytesIO()
 
-    data = pyqrcode.create(u'otpauth://totp/{}?secret={}&issuer={}'.format(label, secret, issuer))
+    data = pyqrcode.create(u'otpauth://totp/{0}?secret={1}&issuer={2}'.format(label, secret, issuer))
     data.svg(buffer, omithw=True)
 
     return buffer.getvalue()

@@ -89,7 +89,7 @@ class WebSocketAdapterProtocol(twisted.internet.protocol.Protocol):
             self.peer = peer2str(self.transport.getPeer())
         except AttributeError:
             # ProcessProtocols lack getPeer()
-            self.peer = u'process:{}'.format(self.transport.pid)
+            self.peer = u'process:{0}'.format(self.transport.pid)
 
         self._connectionMade()
         self.log.debug('Connection made to {peer}', peer=self.peer)

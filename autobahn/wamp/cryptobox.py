@@ -139,7 +139,7 @@ if HAS_CRYPTOBOX:
             key = PrivateKey.generate()
             priv_key = key.encode(encoder=Base64Encoder)
             pub_key = key.public_key.encode(encoder=Base64Encoder)
-            return (u'{}'.format(priv_key), u''.format(pub_key))
+            return (u'{0}'.format(priv_key), u''.format(pub_key))
 
         @public
         def set_key(self, uri, key):
@@ -229,7 +229,7 @@ if HAS_CRYPTOBOX:
             payload_ser = box.decrypt(encoded_payload.payload, encoder=RawEncoder)
 
             if encoded_payload.enc_serializer != u'json':
-                raise Exception("received encrypted payload, but don't know how to process serializer '{}'".format(encoded_payload.enc_serializer))
+                raise Exception("received encrypted payload, but don't know how to process serializer '{0}'".format(encoded_payload.enc_serializer))
 
             payload = _json_loads(payload_ser)
 

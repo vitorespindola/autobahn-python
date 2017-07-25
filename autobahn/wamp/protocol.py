@@ -207,7 +207,7 @@ class BaseSession(ObservableMixin):
                     self.log.warn("failed to decrypt application payload 1: {err}", err=e)
                     enc_err = ApplicationError(
                         ApplicationError.ENC_DECRYPT_ERROR,
-                        u"failed to decrypt application payload 1: {}".format(e),
+                        u"failed to decrypt application payload 1: {0}".format(e),
                         enc_algo=msg.enc_algo,
                     )
                 else:
@@ -219,7 +219,7 @@ class BaseSession(ObservableMixin):
                         )
                         enc_err = ApplicationError(
                             ApplicationError.ENC_TRUSTED_URI_MISMATCH,
-                            u"URI within encrypted payload ('{}') does not match the envelope ('{}')".format(decrypted_error, msg.error),
+                            u"URI within encrypted payload ('{0}') does not match the envelope ('{1}')".format(decrypted_error, msg.error),
                             enc_algo=msg.enc_algo,
                         )
 
@@ -541,7 +541,7 @@ class ApplicationSession(BaseSession):
                     if type(signature) == six.binary_type:
                         signature = signature.decode('utf8')
                     if type(signature) != six.text_type:
-                        raise Exception('signature must be unicode (was {})'.format(type(signature)))
+                        raise Exception('signature must be unicode (was {0})'.format(type(signature)))
                     reply = message.Authenticate(signature)
                     self._transport.send(reply)
 
@@ -730,7 +730,7 @@ class ApplicationSession(BaseSession):
                                 )
                                 enc_err = ApplicationError(
                                     ApplicationError.ENC_DECRYPT_ERROR,
-                                    u"failed to decrypt application payload 1: {}".format(e),
+                                    u"failed to decrypt application payload 1: {0}".format(e),
                                 )
                             else:
                                 if proc != decrypted_proc:
@@ -741,7 +741,7 @@ class ApplicationSession(BaseSession):
                                     )
                                     enc_err = ApplicationError(
                                         ApplicationError.ENC_TRUSTED_URI_MISMATCH,
-                                        u"URI within encrypted payload ('{}') does not match the envelope ('{}')".format(decrypted_proc, proc),
+                                        u"URI within encrypted payload ('{0}') does not match the envelope ('{1}')".format(decrypted_proc, proc),
                                     )
 
                     if msg.progress:
@@ -827,7 +827,7 @@ class ApplicationSession(BaseSession):
                                     )
                                     enc_err = ApplicationError(
                                         ApplicationError.ENC_DECRYPT_ERROR,
-                                        "failed to decrypt INVOCATION payload: {}".format(e),
+                                        "failed to decrypt INVOCATION payload: {0}".format(e),
                                     )
                                 else:
                                     if proc != decrypted_proc:
@@ -839,7 +839,7 @@ class ApplicationSession(BaseSession):
                                         )
                                         enc_err = ApplicationError(
                                             ApplicationError.ENC_TRUSTED_URI_MISMATCH,
-                                            u"URI within encrypted INVOCATION payload ('{}') does not match the envelope ('{}')".format(decrypted_proc, proc),
+                                            u"URI within encrypted INVOCATION payload ('{0}') does not match the envelope ('{1}')".format(decrypted_proc, proc),
                                         )
 
                         if enc_err:
@@ -1559,7 +1559,7 @@ class _SessionShim(ApplicationSession):
             authenticator = self._authenticators[challenge.method]
         except KeyError:
             raise RuntimeError(
-                "Received challenge for unknown authmethod '{}'".format(
+                "Received challenge for unknown authmethod '{0}'".format(
                     challenge.method
                 )
             )
@@ -1591,7 +1591,7 @@ class _SessionShim(ApplicationSession):
             ])
             if len(uni) > 1:
                 raise ValueError(
-                    "Inconsistent {}s: {}".format(
+                    "Inconsistent {0}s: {1}".format(
                         name,
                         ' '.join(uni),
                     )
@@ -1610,7 +1610,7 @@ class _SessionShim(ApplicationSession):
         for k, v in merged:
             if k in authextra and authextra[k] != v:
                 raise ValueError(
-                    "Inconsistent authextra values for '{}': '{}' vs '{}'".format(
+                    "Inconsistent authextra values for '{0}': '{1}' vs '{2}'".format(
                         k, v, authextra[k],
                     )
                 )
@@ -1622,13 +1622,13 @@ class _SessionShim(ApplicationSession):
         authextras = [a._args.get('authextra', {}) for a in self._authenticators.values()]
         # for all existing _authenticators, we've already checked that
         # if they contain a key it has the same value as all others.
-        return {
-            k: v
+        return dict(
+            (k, v)
             for k, v in zip(
                 reduce(lambda x, y: x | set(y.keys()), authextras, set()),
                 reduce(lambda x, y: x | set(y.values()), authextras, set())
             )
-        }
+        )
 
     # these are the actual "new API" methods (i.e. snake_case)
     #

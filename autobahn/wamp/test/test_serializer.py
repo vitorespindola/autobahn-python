@@ -146,7 +146,7 @@ class TestSerializer(unittest.TestCase):
             self._test_serializers.append(serializer.UBJSONSerializer())
             self._test_serializers.append(serializer.UBJSONSerializer(batched=True))
 
-        print('Testing WAMP serializers {} with {} WAMP test messages'.format([ser.SERIALIZER_ID for ser in self._test_serializers], len(self._test_messages)))
+        print('Testing WAMP serializers {0} with {1} WAMP test messages'.format([ser.SERIALIZER_ID for ser in self._test_serializers], len(self._test_messages)))
 
     def test_deep_equal(self):
         """
